@@ -7,19 +7,19 @@ const {
   boomErrorHandler,
 } = require('./middlewares/error.handler');
 const app = express();
-const port = 3000;
+const port = process.env.PORT || 3000;
+app.listen(port, () => {});
 const allowList = ['http://127.0.0.1:5500'];
 const options = {
   origin: (origin, callback) => {
     if (allowList.includes(origin)) {
-      callback(null, true)
+      callback(null, true);
     } else {
-      callback(new Error('no permitido'))
+      callback(new Error('no permitido'));
     }
-  }
+  },
 };
 
-app.listen(port, () => {});
 app.use(cors(options));
 
 app.use(express.json());
